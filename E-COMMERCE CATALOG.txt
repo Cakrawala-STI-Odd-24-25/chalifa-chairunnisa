@@ -1,0 +1,77 @@
+E-COMMERCE CATALOG
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Product {
+private:
+    int id;
+    string name;
+    double price;
+    int stock;
+    string category;
+
+public:
+    // Constructor
+    Product(int productId, string productName, double productPrice, int productStock, string productCategory) {
+        id = productId;
+        name = productName;
+        price = productPrice >= 0 ? productPrice : 0; // Validasi harga
+        stock = productStock >= 0 ? productStock : 0; // Validasi stok
+        category = productCategory;
+    }
+
+    // Method untuk update harga
+    void updatePrice(double newPrice) {
+        if (newPrice >= 0) {
+            price = newPrice;
+            cout << "Price updated to: " << price << endl;
+        } else {
+            cout << "Price must be non-negative!" << endl;
+        }
+    }
+
+    // Method untuk update stok
+    void updateStock(int newStock) {
+        if (newStock >= 0) {
+            stock = newStock;
+            cout << "Stock updated to: " << stock << endl;
+        } else {
+            cout << "Stock must be non-negative!" << endl;
+        }
+    }
+
+    // Method untuk menampilkan informasi produk
+    void displayInfo() {
+        cout << "Product ID: " << id << endl;
+        cout << "Name: " << name << endl;
+        cout << "Price: " << price << endl;
+        cout << "Stock: " << stock << endl;
+        cout << "Category: " << category << endl;
+    }
+
+    // Method untuk menghitung diskon
+    double calculateDiscount(double discountPercentage) {
+        if (discountPercentage > 0 && discountPercentage <= 100) {
+            return price * (discountPercentage / 100);
+        } else {
+            cout << "Invalid discount percentage!" << endl;
+            return 0;
+        }
+    }
+};
+
+int main() {
+    Product product1(1, "Laptop", 1500.00, 10, "Electronics");
+
+    product1.displayInfo();
+    product1.updatePrice(1400.00);
+    product1.updateStock(8);
+    
+    double discount = product1.calculateDiscount(10);
+    cout << "Discount amount: " << discount << endl;
+
+    return 0;
+}
